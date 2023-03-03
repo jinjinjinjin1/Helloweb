@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 //자바 소스 :http 통신 방법을 활용해서 request, response 생성 처리.
 //HttpServlet 클래스를 상속 받아서 사용
 //서블릿의 실행: 개발자 X, Tomcat 이란 컨테이너가 정해둔 실행방식으로 제어(IOC:제어의 역전)
+
 //순서: 객체 -> init -> service -> destroy
+
 public class FirstServlet extends HttpServlet{
 
 	public FirstServlet() {
@@ -31,21 +33,19 @@ public class FirstServlet extends HttpServlet{
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//service 호출은 서블릿이 호출될때마다 실행.
 		System.out.println("service 호출. FirstServlet");
-		//super.service(req, resp);
-		
 		if(req.getMethod().equals("GET")) {
-			doGet(req,resp);
-			
+			doGet(req,resp);	
 		}else if(req.getMethod().equals("POST")) {
 			doPost(req,resp);
 		}
 	}
 	
+	
 	@Override
 	public void destroy() {
 		System.out.println("destroy 호출. FirstServlet");
-		//super.destroy();
 	}
+	
 	//클라이언트 -> 서버 요청: get or post
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

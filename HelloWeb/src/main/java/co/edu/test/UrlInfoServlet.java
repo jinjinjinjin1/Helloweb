@@ -24,9 +24,9 @@ public class UrlInfoServlet extends HttpServlet {
 		out.print("<h3>요청정보의 url </h3>");
 		out.print("<br>Request URI: " + req.getRequestURI());
 		out.print("<br>Request URI: " + req.getRequestURI());
-		out.print("<br>Context Path: " +req.getServletContext());
+		out.print("<br>Context Path: " +req.getContextPath());
 		out.print("<br>Request Protocol: " + req.getProtocol());
-		out.print("<br>Servlet Path: " + req.getServletContext());
+		out.print("<br>Servlet Path: " + req.getServletPath());
 	
 		out.close();
 		//super.service(req, res);

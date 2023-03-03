@@ -5,13 +5,21 @@
 	id="WebApp_ID" version="4.0">
 
 	<display-name>HelloWeb</display-name>
+	
+	<!-- Context에 파라미터를 지정하려면 ... -->
+	<context-param>
+		<param-name>contextConfig</param-name>
+		<param-value>/WEB-INF/context.xml</param-value>
+	</context-param>
+	
+	
 	<servlet>
 	<servlet-name>first</servlet-name>
 	<servlet-class>co.edu.test.FirstServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 	<servlet-name>first</servlet-name>
-	<url-pattern>/first</url-pattern>
+	<url-pattern>/first</url-pattern> 
 	</servlet-mapping>
 	
 	<servlet>
@@ -23,8 +31,57 @@
 		<url-pattern>/addInfo/*</url-pattern>
 	</servlet-mapping>
 	
+
+	<servlet>
+		<servlet-name>initParam</servlet-name>
+		<servlet-class>co.edu.test.InitParamServlet</servlet-class>
+		<init-param>
+			<param-name>id</param-name>
+			<param-value>guest</param-value>
+		</init-param>
+		<init-param>
+			<param-name>password</param-name>
+			<param-value>1234</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>initParam</servlet-name>
+		<url-pattern>/initParamTest</url-pattern>
+	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>servletConfig</servlet-name>
+		<servlet-class>co.edu.test.ServletConfigTestServ</servlet-class>
+		<init-param>
+			<param-name>charset</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>servletConfig</servlet-name>
+		<url-pattern>/servletConfig</url-pattern>
+	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>servConfigTest</servlet-name>
+		<servlet-class>co.edu.test.servletConfig.ServletContextTestServ</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>servConfigTest</servlet-name>
+		<url-pattern>/servletConfigTest</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>front</servlet-name>
+		<servlet-class>co.dev.common.FrontController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>front</servlet-name>
+		<url-pattern>*.do</url-pattern> <!-- login.do 든 main.do든 어느거든 상관없이 -->
+	</servlet-mapping>
+	
+
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>

@@ -7,17 +7,25 @@
 <body>
     <h3>회원 정보</h3>
     <form action="queryTest" method="post">
-        ID:<input type = "text" name = "id"><br>
-        비밀번호:<input type = "password" name = "pwd"><br>
-        이름: <input type="text" name="name"><br>
-        취미: <input type="text" name="hobby">
-		<input type="checkbox" name="hobby" value = "climbing">등산
-        <input type="checkbox" name="hobby" value = "singing">노래부르기
-        <input type="checkbox" name="hobby" value = "reading">독서
-        <input type="checkbox" name="hobby" value = "ruuning">달리기
-        성별:
-        <input type = "radio" name="gender" value = "male" > 남자
+        I   D <input type = "text" name = "id"><br>
+        비밀번호 <input type = "password" name = "pwd"><br>
+        이   름 <input type="text" name="name"><br>
+        
+        
+        취미:<br>
+		<input type="checkbox" name="hobby" value = "climbing">등산<br>
+		
+        <input type="checkbox" name="hobby" value = "singing">노래부르기<br>
+        
+        <input type="checkbox" name="hobby" value = "reading">독서<br>
+        
+        <input type="checkbox" name="hobby" value = "ruuning">달리기<br>
+        
+        
+        성  별:<br>
+        <input type = "radio" name="gender" value = "male" > 남자<br>
         <input type = "radio" name="gender" value = "female" > 여자 <br>
+        
         종교:
         <select name = "religion">
             <option value="Chistianity">기독교</option>
@@ -27,7 +35,7 @@
         </select>
         <br>
         자기소개:<br>
-        <textarea name="introduction" cols="30" row="10"></textarea></form><br>
+        <textarea name="introduction" cols="30" row="100"></textarea></form><br>
          <input type="submit" value ="전송">
         <input type = "reset" value = "지우기">
     </form>    

@@ -36,7 +36,6 @@ public class HeaderInfoServlet extends HttpServlet {
 		
 		out.print(html);
 		out.close();
-		//super.service(req, resp);
 	}
 
 	

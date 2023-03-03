@@ -21,7 +21,6 @@ public class SecondServlet extends HttpServlet{
 		out.print("<h3>좋은 하루 되세요!</h3>");
 		out.close();
 		
-		//super.service(req, res);
 	}
 	
 	
