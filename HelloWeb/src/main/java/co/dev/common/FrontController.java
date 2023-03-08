@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import co.dev.controller.EmpListControl;
+import co.dev.controller.LoginFormControl;
+import co.dev.controller.LogoutControl;
 import co.dev.controller.MainControl;
 import co.dev.controller.MemberDeleteControl;
 import co.dev.controller.MemberDeleteFormControl;
@@ -21,6 +22,12 @@ import co.dev.controller.MemberSearchControl;
 import co.dev.controller.MemberSearchFormControl;
 import co.dev.controller.MemberUpdateControl;
 import co.dev.controller.MemberUpdateFormControl;
+import co.dev.controller.NoticeAddControl;
+import co.dev.controller.NoticeListControl;
+import co.dev.controller.NoticeModifyControl;
+import co.dev.controller.NoticeRemoveControl;
+import co.dev.controller.NoticeSearchControl;
+import co.dev.controller.NoticeFormControl;
 
 
 public class FrontController extends HttpServlet{
@@ -35,7 +42,8 @@ public class FrontController extends HttpServlet{
 		
 		map.put("/main.do", new MainControl());
 		map.put("/login.do", new LoginControl());
-	
+		map.put("/loginForm.do", new LoginFormControl());
+		map.put("/logout.do", new LogoutControl());
 		
 		//회원목록.
 		map.put("/memberList.do", new MemberListControl()); //사원목록 과제할때 참고하기
@@ -56,10 +64,27 @@ public class FrontController extends HttpServlet{
 		//삭제처리
 		map.put("/memberDelete.do", new MemberDeleteControl());
 		
-		
 		//사원목록.
-		map.put("/empList.do", new EmpListControl()); //(과제)결과페이지  - member/empList.jsp
+		//map.put("/empList.do", new EmpListControl()); //(과제)결과페이지  - member/empList.jsp
 	
+		//공지사항 관련
+		map.put("/noticeList.do", new NoticeListControl()); //목록
+		//공지사항등록화면
+		map.put("/noticeWriteForm.do", new NoticeFormControl());//공지사항등록화면
+		//공지사항등록처리
+		map.put("/noticeAdd.do", new NoticeAddControl());//공지사항등록처리
+		//공지사항 한건조회
+		//service.getNotice(nid),Mapper.selectNotice(nid) 
+		//공지사항 한건조회
+		map.put("/noticeSearch.do", new NoticeSearchControl());//공지사항 한건조회
+		//공지사항 수정관련
+		map.put("/noticeModify.do", new NoticeModifyControl());//공지사항 수정관련
+		//공지사항 삭제관련
+		map.put("/noticeRemove.do", new NoticeRemoveControl());//공지사항 삭제관련
+		
+		
+		
+		
 	}
 	
 	@Override

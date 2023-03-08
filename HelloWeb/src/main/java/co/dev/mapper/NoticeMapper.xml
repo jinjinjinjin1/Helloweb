@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="co.dev.mapper.NoticeMapper">
+
+<!-- 조회 -->
+  <select id="noticeList" resultType="co.dev.vo.NoticeVO">
+    select * from notice order by notice_id desc
+  </select>
+  <!-- 페이지넣기 -->
+  <select id="noticeListWithPaging" resultType="co.dev.vo.NoticeVO" 
+          parameterType="int">
+    <![CDATA[
+    select notice_id, notice_writer, notice_title
+    from (select rownum rn, notice_id, notice_writer,notice_title
+        from (select  notice_id, notice_writer,notice_title
+              from notice
+              order by notice_id desc) a 
+              where rownum <= (#{page} * 10 ) ) b 
+      where b.rn >(#{page} - 1) * 10
+    ]]>
+  </select>
+  
+<!-- 등록 -->
+  <insert id = "insertNotice" parameterType="co.dev.vo.NoticeVO">
+  	insert into notice (notice_id,notice_writer,notice_title,notice_subject,attach)
+ 	values(notice_seq.nextval,#{noticeWriter},#{noticeTitle},#{noticeSubject},#{attach})
+  </insert>
+   
+ <!-- 단건조회 -->
+  <select id = "selectNotice" resultType="co.dev.vo.NoticeVO" parameterType="int">
+  	select * from notice where notice_id = #{nid}
+  </select>
+  
+  <!-- 수정 -->
+  <update id="updateCount" parameterType="int">
+  update notice set hit_count = hit_count +1
+  where notice_id = #{nid}
+  </update>
+  
+ <!-- 전체페이지건수 -->
+  <select id="getTotalCount" resultType="int">
+  select count(*) from notice
+  </select>
+  
+   <!-- 공지사항수정 -->
+  <update id="updateNotice" parameterType="co.dev.vo.NoticeVO">
+  update notice
+  set notice_title=#{noticeTitle},notice_subject=#{noticeSubject}
+  where notice_id =#{noticeId}
+  </update>
+  
+  <!-- 공지사항삭제 -->
+  <delete id ="deleteNotice" parameterType="int">
+  delete from notice where notice_id =#{noticeId}
+  </delete>
+  
+
+</mapper>

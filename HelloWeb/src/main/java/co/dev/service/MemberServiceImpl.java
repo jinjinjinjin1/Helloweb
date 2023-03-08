@@ -43,5 +43,12 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 
+	@Override
+	public MemberVO login(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 }

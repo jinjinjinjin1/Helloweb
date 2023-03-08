@@ -19,7 +19,7 @@
 	<%
 	    for (MemberVO member : list) {
 	%>
-	    <tr><td><%=member.getId() %></td>
+	    <tr><td><a href='memberSearch.do?job=search&id=<%=member.getId() %>'><%=member.getId() %></a></td>
 	   		<td><%=member.getName() %></td>
 	    	<td><%=member.getPasswd() %></td>
 	    	<td><%=member.getMail()%></td></tr>
