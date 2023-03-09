@@ -1,40 +1,41 @@
 <%@page import="co.dev.vo.NoticeVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%@ include file="../includes/sidebar.jsp" %>
-<%@ include file="../includes/top.jsp" %>
+<jsp:include page="../includes/sidebar.jsp"></jsp:include>
+<jsp:include page="../includes/top.jsp"></jsp:include>
 
-<%
-NoticeVO vo = (NoticeVO)request.getAttribute("notice");
-%>
-
+${notice }
 	<table class="table">
 	<tr>
 	 <td>글 번호</td>
-	 <td><input type="text" name = "nid" readonly value="<%=vo.getNoticeId()%>" ></td>
-	 <td>조회수 [ <b><%=vo.getHitCount() %></b> ]</td>
-	 
+	 <td><input type="text" name = "nid" readonly value="${notice.noticeId}" ></td>
+	 <td>조회수 [ <b>"${notice.hitCount }"</b> ]</td>
 	</tr>
 	<tr>
 	 <td>제목</td>
-	 <td colsapn=2><input type="text" name = "title" value="<%=vo.getNoticeTitle()%>" ></td>
+	 <td colsapn=2><input type="text" name = "title" value="${notice.noticeTitle }" ></td>
 	</tr>
 	<tr>
 	 <td>작성자</td>
-	 <td colsapn=2><input type="text" name = "writer" readonly value="<%=vo.getNoticeWriter()%>" ></td>
+	 <td colsapn=2><input type="text" name = "writer" readonly value="${notice.noticeWriter }" ></td>
 	</tr>
 	<tr>
 	 <td>내용</td>
-	 <td colsapn=2><textarea cols="30" rows ="5" name="subject"><%=vo.getNoticeSubject()%>"</textarea></td>
+	 <td colsapn=2><textarea cols="30" rows ="5" name="subject">"${notice.noticeSubject}"</textarea></td>
 	</tr>
 	<tr>
 	 <td>파일</td>
-	 <td colsapn=2> <% if (vo.getAttach() != null) { %>
-	 <td><input type="text" name = "attach" value="<%=vo.getAttach()%>">
-	 <%} else{ %>
-	 <input type="text" name="attach">
-	 <%} %>
+	 <td colsapn=2>
+	 <c:choose>
+	 	<c:when test="${notice.attach !=null }">
+	 	<input type="text" name = "attach" value="${notice.attach }">
+	 	</c:when>
+		<c:otherwise>
+	 	<input type="text" name="attach">
+		</c:otherwise>
+		</c:choose>
 	</td>
 	</tr>
 	<tr>
@@ -78,4 +79,4 @@ document.querySelector('#delBtn').addEventListener('click',function(){
 	)
 </script>
 
-<%@ include file="../includes/footer.jsp" %>
+<jsp:include page="../includes/footer.jsp"></jsp:include>

@@ -48,7 +48,7 @@ public class NoticeServiceMybatis implements NoticeService {
 
 	@Override
 	public boolean deleteNotice(int nid) {
-		return 0;
+		return mapper.deleteNotice(0)==1;
 	}
 
 

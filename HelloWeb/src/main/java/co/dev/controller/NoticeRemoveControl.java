@@ -23,8 +23,10 @@ public class NoticeRemoveControl implements Control {
 			req.setAttribute("message","정상 처리 완료." );
 		}else {
 			System.out.println("삭제 실패");
-			req.setAttribute("message", "예외 처리");
+			req.setAttribute("message", "예외 발생");
 		}
+		//요청을 재지정해주는 객체 RequestDispatcher
+		req.getRequestDispatcher(null);
 	}
 
 }

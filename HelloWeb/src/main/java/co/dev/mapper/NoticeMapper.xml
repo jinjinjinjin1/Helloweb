@@ -13,9 +13,9 @@
   <select id="noticeListWithPaging" resultType="co.dev.vo.NoticeVO" 
           parameterType="int">
     <![CDATA[
-    select notice_id, notice_writer, notice_title
-    from (select rownum rn, notice_id, notice_writer,notice_title
-        from (select  notice_id, notice_writer,notice_title
+    select notice_id, notice_writer, notice_title,create_date
+    from (select rownum rn, notice_id, notice_writer,notice_title,create_date
+        from (select  notice_id, notice_writer,notice_title,create_date
               from notice
               order by notice_id desc) a 
               where rownum <= (#{page} * 10 ) ) b 
