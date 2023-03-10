@@ -49,7 +49,7 @@
    		<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${notice.createDate }"/> </td>
    	</tr>
    </c:forEach>
-   </tbody>
+   </tbody> 
   </table>
   
 <p>${paging }
