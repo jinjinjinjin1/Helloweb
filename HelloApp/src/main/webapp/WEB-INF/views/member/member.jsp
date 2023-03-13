@@ -16,9 +16,9 @@
 		<tr>
 		<th>ID</th>
 		<th>Name</th>
-		<th>pass</th>
-		<th>mail</th>
-		<th>auth</th>
+		<th>Pass</th>
+		<th>Mail</th>
+		<th>Auth</th>
 		<th>삭제</th>
 		</tr>
 		</thead>
@@ -90,12 +90,10 @@ fetch('memberListAjax.do') //json포맷으로 데이터 정상 출력.
 
 //등록버튼 클릭이벤트.
 document.getElementById('addBtn').addEventListener('click',function(e){
-	//console.log(e.target.parenttElement.parentElement)
-	let frm =document.querySelector('form');
-	frm.addEventListner('submit',function(e){
+
 		e.preventDefault();
 	})
-	let id = '';
+	let id = 'document.';
 	let nm = '';
 	let pw = '';
 	let ma = '';
