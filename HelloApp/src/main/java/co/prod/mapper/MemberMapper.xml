@@ -21,7 +21,7 @@
   
  <insert id = "insertMember" parameterType="co.prod.vo.MemberVO">
  insert into members (id,name,password,mail,auth)
- values(#{id},#{name},#{passwd},#{mail},#{auth})
+ values(#{id},#{name},#{password},#{mail},#{auth})
  </insert>
   
 </mapper>

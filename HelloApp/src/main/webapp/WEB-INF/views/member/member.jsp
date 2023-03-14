@@ -2,18 +2,41 @@
 	pageEncoding="UTF-8"%>
 <h3>Tiles가 적용된 member 페이지</h3>
 <div>
-<form>
-	Id : <input type="text" id="id"> <br>
-	Name : <input type="text" id="name"> <br>
-	Pass : <input type="text" id="passwd"> <br>
-	Mail : <input type="text" id="mail"> <br>
-	Auth : <input type="text" id="auth"> <br>
-	<button id="addBtn">등록</button>
-</form>
-
-	<table calss="table">
-		<thead>
-		<tr>
+ <form>
+    <table class="table">
+      <tr>
+        <td>Id:</td>
+        <td><input type="text" id="id"></td>
+      </tr>
+      <tr>
+        <td>Name:</td>
+        <td><input type="text" id="name"></td>
+      </tr>
+      <tr>
+        <td>Pass:</td>
+        <td><input type="text" id="passwd"></td>
+      </tr>
+      <tr>
+        <td>Mail:</td>
+        <td><input type="text" id="email"></td>
+      </tr>
+      <tr>
+        <td>Auth:</td>
+        <td><input type="text" id="auth"></td>
+      </tr>
+      <tr>
+        <td colspan='2' align="center">
+          <button id="addBtn">등록</button>
+          <button id="delSelected">선택삭제</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+<div>
+	<table class="table">
+	<thead>
+	<tr>
 		<th>ID</th>
 		<th>Name</th>
 		<th>Pass</th>
@@ -21,11 +44,10 @@
 		<th>Auth</th>
 		<th>삭제</th>
 		</tr>
-		</thead>
+	</thead>
 		<tbody id=list>
 		</tbody>
 	</table>
-
 </div>
 <script>
 
@@ -39,11 +61,64 @@ fetch('memberListAjax.do') //json포맷으로 데이터 정상 출력.
  	
  for(let i=0; i<result.length;i++){		
  	let id = result[i].id;
- 	let tr = document.createElement('tr');
+ 	makeTr(result[i]);
+ 	}
+ })
+.catch(function(reject){
+	console.error(reject); 
+})
+.then(function(result){
+	console.log(result);
+})
+
+
+//등록버튼 클릭이벤트.
+document.getElementById('addBtn').addEventListener('click',function(e){
+	e.preventDefault(); //이벤트의 기본기능 차단.
+
+	let id = document.getElementById('id').value;
+	let nm = document.getElementById('name').value;
+	let pw = document.getElementById('passwd').value;
+	let ma = document.getElementById('email').value;
+	let au = document.getElementById('auth').value;
+	
+	if(!id || !nm || !pw || !ma || !au){
+		alert("값을 입력!!");
+		return; 
+	}
+	//ajax 호출.
+	fetch('memberAddAjax.do',{
+		method: 'post',
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded'},
+		body: 'id=' + id + '&name=' + nm + '&pw='+ pw+'&mail=' + ma +'&auth='+au
+	})
+	.then(resolve => resolve.json()) //{"id":"user1", "name":"홍길동",...}
+	.then(result =>{
+		console.log(result); //{member: {...}, retCode: 'Success'}
+		if(result.retCode == 'Success'){
+			alert('성공!!');
+			//추가된 값을 화면 출력. start.
+			makeTr(result.member);
+			
+
+		//추가된 값 화면출력. end.
+		initField();
+		}else if(result.retCode == 'Fail'){
+			alert('예외발생!!');
+		}
+	})
+	.catch(reject => console.error(reject)); //에러가 발생하면 캐치안의 함수로 실행
+})
+
+//tr 생성.
+function makeTr(member ={}){
+	//완료. tr> td + td+ td+ td +td > button 
+	let tr = document.createElement('tr');
  	//td만들기.(아이디,이름,비번,메일,권한)
- 	for(let prop in result[i]){ //for ...in.. object의 필드반복.
+ 	for(let prop in member){ //for ...in.. object의 필드반복.
  		let td = document.createElement('td');
- 		td.innerText = result[i][prop];
+ 		td.innerText =member[prop];
  		tr.append(td);
  	}
  	//삭제버튼.
@@ -78,42 +153,14 @@ fetch('memberListAjax.do') //json포맷으로 데이터 정상 출력.
  	td.append(delBtn); //<td><button>삭제</button></td>
  	tr.append(td); //<td></td><td></td>  <tr><td><button>삭제</button></td></tr>
  	document.getElementById('list').append(tr);
- 	}
- })
-.catch(function(reject){
-	console.error(reject); 
-})
-.then(function(result){
-	console.log(result);
-})
+}
 
-
-//등록버튼 클릭이벤트.
-document.getElementById('addBtn').addEventListener('click',function(e){
-
-		e.preventDefault();
-	})
-	let id = 'document.';
-	let nm = '';
-	let pw = '';
-	let ma = '';
-	let au = '';
-	
-	if(!id || !nm || !pw || !ma || !au){
-		alert("값을 입력!!");
-		return false; 
-	}
-	//ajax 호출.
-	fetch('memberAddAjax.do',{
-		method: 'post',
-		header: {'Content-type': 'application/x-www-form-urlencoded'},
-		body: 'id=?&name=?&pw=?&mail=?&auth=?'
-	})
-	.then(resolve => resolve.json())
-	.then(result =>{
-		console.log(result);
-	})
-	.catch(reject => console.error(reject));
-});
+function initField() {
+	document.getElementById('id').value = '';
+	document.getElementById('name').value ='';
+	document.getElementById('passwd').value='';
+	document.getElementById('email').value='';
+	document.getElementById('auth').value='';
+}
 
 </script>
