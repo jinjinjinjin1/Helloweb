@@ -19,8 +19,11 @@
 
 	<typeAliases>
 		<typeAlias type ="co.prod.vo.ProductVO"  alias = "productVO"/>
+		<typeAlias type ="co.prod.vo.ReplyVO"  alias = "replyVO"/>
 	</typeAliases>
+	
 
+	
 
   <environments default="development">
     <environment id="development">

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.prod.common.Control;
 import co.prod.service.ProductService;
+import co.prod.service.ProductServiceMybatis;
 import co.prod.vo.ProductVO;
 
 public class ProductListControl implements Control {
@@ -18,7 +19,7 @@ public class ProductListControl implements Control {
 		//return "product/productList.tiles"; //실행할 페이지.
 	ProductService service = new ProductServiceMybatis();
 
-	List<ProductVO> list = service.productList();
+	List<ProductVO> list = service.products();
 
 	
 	req.setAttribute("list", list);
