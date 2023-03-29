@@ -10,8 +10,6 @@
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                    <c:forEach var="product" items="${products }"> 
                     <div class="col mb-5">
-                    </c:forEach>
-                       
                         <div class="card h-100">
                             <!-- Sale badge-->
                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
@@ -21,34 +19,40 @@
                             
                             <!-- Product details-->
                             <div class="card-body p-4">
-                                <div class="text-center" value ="${product.productDesc }">
+                                <div class="text-center"><a href="productInfo.do?code=${product.productCode }"><value ="${product.productDesc }"></a></div>
                                    
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder" value="${product.productName }"><h5>
+                                    <h5 class="fw-bolder" value=${product.productName }><h5>
                                     <!-- Product reviews-->
                                     <div class="d-flex justify-content-center small text-warning mb-2">
-                                    <c:forEach begin="1" end="5-${product.likeIt }" var="${product.likeIt }">
+                                    <c:forEach begin="1" end="${product.likeIt }" step="1">
                                       <div class="bi-star-fill"></div>
+                                   </c:forEach>
+                                    <fmt:formatNumber value="${product.likeIt }" pattern="#.##" var="originValue" />
+                                    <fmt:formatNumber value="${product.likeIt }" pattern="#" var="calValue" />
+                                    <c:if test="${originValue != calValue }">
+                                        <div class="bi-star-half"></div>
+                                    </c:if>
+                                    <c:forEach begin="1" end="${5 - product.likeIt }">
+                                        <div class="bi-star"></div>
                                     </c:forEach>
-                                      
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
+                                	</div>
+     
                                     <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through" value = "${product.productPrice }"></span>
-                                    value = "${product.salePrice }"
-                                </div>
+                                <span class="text-muted text-decoration-line-through">
+                                    <fmt:formatNumber value="${product.originPrice }" pattern="#,###" />원 
+                                </span>
+                                &nbsp;<fmt:formatNumber value="${product.salePrice }" pattern="#,###" />원
                             </div>
-                            
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
                             </div>
                         </div>
                     </div>
-   
                 </div>
-            </div>
-         </section>
+            </c:forEach>
+        </div>
+    </div>
+</section>

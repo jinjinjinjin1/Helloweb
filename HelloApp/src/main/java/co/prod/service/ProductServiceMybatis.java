@@ -1,6 +1,7 @@
 package co.prod.service;
 
 import java.util.List;
+import java.util.Map;
 
 import co.prod.service.ProductService;
 import co.prod.vo.ProductVO;
@@ -41,6 +42,26 @@ public class ProductServiceMybatis implements ProductService {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public ReplyVO getReply(int replyId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public boolean modifyReply(ReplyVO vo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<Map<String, Object>> chartInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	
 

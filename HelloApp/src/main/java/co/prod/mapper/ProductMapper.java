@@ -1,6 +1,8 @@
 package co.prod.mapper;
 
 import java.util.List;
+import java.util.Map;
+
 import co.prod.service.ProductService;
 import co.prod.vo.ProductVO;
 import co.prod.vo.ReplyVO;
@@ -16,5 +18,13 @@ public interface ProductMapper {
 	public int deleteReply(int replyId);
 	//댓글 등록
 	public int insertReply(ReplyVO vo);
+	//댓글조회
+	public ReplyVO selectReply(int replyId);
 	//댓글수정
+	public int modifyReply(ReplyVO vo);
+	
+	
+	//chart.부서별인원현황.
+	public List<Map<String, Object>> chartInfo(); //map타입을 컬렉션타입으로 받기위해서 List로
+	
 }

@@ -41,62 +41,120 @@
            </tr>
          </thead>
         <tbody id="list">
-         <tr>
-          <td>1</td>
-          <td>user01</td>
-          <td>reply test</td>
-          <td><button>삭제</button></td>
-         </tr>
         </tbody>
         </table>
         
-        <script>
-        //목록데이터가져오는것
+<div style="display:none">
+<table>
+<tr id="template">
+<td class="replyNo">1</td>
+<td class="replyWriter">user</td>
+<td><input class="replyContent" type="text" value=""></td>
+<td><button onclick ='updateReply(this)'>저장</button></td>
+</tr>
+</table>
+</div>   
+     
+<script>
+		
+     	//목록데이터가져오는것
         //let promiseResult= fetch('')
         //promiseResult.then(function(){});
-     	fetch('replyListAjax.do?code=CF0001') //괄호 안의 주소를 JSON 포맷으로 가져온다
+     	fetch('replyListAjax.do?code=${code.productCode}') //괄호 안의 주소를 JSON 포맷으로 가져온다
      	.then(resolve => resolve.json()) //[{"id" : "user1", "name" : "Hong"}]
      	.then(result => {
      		console.log(result);
      		//값을 이용해서 tr 생성.
      		result.forEach(function(reply){
-     		makeRow(reply)
+     		let tr = makeRow(reply);
+     		document.querySelector('#list').append(tr);
      		});
      	})
      	.catch(reject => console.error(reject));
      	
         	
         let showProps=['replyNo','replyWriter','replyContent'];
+       
         function makeRow(reply={}){ //tr > td*4
-     		let tr =document.createElement('tr'); //<tr></tr>
+     		//tr 생성
+        	let tr =document.createElement('tr'); //<tr></tr>
      		tr.addEventListener('dblclick',modifyTr)
-     		tr.id = reply.replyNo; // tr의 id의 attribute에 
-     		console.log(tr.id);
-     		showProps.forEach(function (prop){
+     		tr.id = reply.replyNo; // tr의 id의 attribute에
+     		//console.log(tr.id);
+     		
+     		//td생성
+     		showProps.forEach(function (prop){ 
      		let td =document.createElement('td'); //<td></td>생성
      		td.innerText = reply[prop];
      		console.log(reply[prop]);
      		tr.append(td);
      		})
      		
+     		//항목외에 추가하는 기능.
      		let td =document.createElement('td');
      		let btn = document.createElement('button');
      		btn.addEventListener('click',removeReply); //삭제처리
      		btn.innerText='삭제';
      		td.append(btn);
      		tr.append(td);
-     		document.querySelector('#list').append(tr);
+     		//document.querySelector('#list').append(tr);
+     		
+     		//makeRow를 호출하는 영역에서 처리하도록 tr을 반환.
+     		return tr;
+     		
      		}
-     	
-        	function modifyTr(){
+     		
+        	//화면수정할수 있도록 처리.
+        	function modifyTr(data){
         		console.log(this);
+        		let id = this.id; //
         		let oldTr = this;
         		//데이터 결과 가져왔다치공..
         		//let data = {replyNo: 15,replyWriter:'user02',replyContent:'tttt'};
-        		let data = {replyNo: 15,replyWriter:'user02',replyContent:'changetttt'};
+        		
+        		//댓글 한건 조회.
+        		fetch('replySearchAjax.do?replyNo='+id) //댓글한건 가져올 컨트롤
+        		.then(resolve =>resolve.json()) //sjon 형태로 받아오고
+        		.then(result => {
+        			console.log(result);
+        			let data = result;
+        			
+        			//makeEditRow(data);
+        			
+//         			oldTr.innerHTML = makeEditRow2(data);
+        			document.getElementById('list').replaceChild(makeEditRow3(data),oldTr);
+        		}) 
+        		.catch(reject =>console.error(reject));
+        		
+    
+        	
+        	}
+        	function makeEditRow3(data){
+    			let cloneTr = document.getElementById('template').cloneNode(true);
+    	     	cloneTr.querySelector('.replyNo').innerText = data.replyNo;
+    	     	cloneTr.querySelector('.replyWriter').innerText =data.replyWriter;
+    	     	cloneTr.querySelector('.replyContent').value = data.replyContent ;
+    	     	console.log(cloneTr);
+    	     	return cloneTr;
+    		}
+        	
+        	function makeEditRow2(data){
+        		let str = "";
+        		str += "<td>"+data.replyNo+"</td>";
+        		str += "<td>"+data.replyWriter+"</td>";
+        		str += "<td>><input value='"+ data.replyContent + " '></td>";
+        		str += "<td><button onclick='updateReply()'>저장</button></td>";
+        		//<td>10</td><td>user04</td><input value="content">내용</td><td><button onclick='updateReply()'>저장</button></td>
+        		
+        		return str;
+        	}
+        	
+        	
+        	function makeEditRow(data){
         		let newTr = document.createElement('tr');
         		let td = document.createElement('td');
         		td.innerText = data.replyNo;
+        		console.log(data.replyNo);
         		newTr.append(td);
         		
         		td = document.createElement('td');
@@ -117,12 +175,29 @@
         		newTr.append(td);
         		
         		console.log(newTr);
+        		console.log(oldTr);
         		document.getElementById('list').replaceChild(newTr,oldTr);
         	}
         	
-        	function updateReply(){
-        		
-        		
+    		//댓글 수정 
+        	function updateReply(a){
+    		let oldTr =a.parentElement.parentElement;
+  			let id = oldTr.querySelector('.replyNo').innerText;
+  			let content = oldTr.querySelector('input').value;
+          
+  			fetch('replyUpdateAjax.do?replyNo='+id+'&content='+content)
+  			.then(resolve => resolve.json()) 
+  			.then(result=>{
+                console.log(result)
+                if(result.retCode == 'Success'){
+                	let newTr = makeRow(result.reply);
+                    document.getElementById('list').replaceChild(newTr,oldTr);
+                }else{
+                	console.log('에러');
+                }
+            })
+  			.catch(reject=>console.error(reject));
+  			
         		
         		
         		
@@ -130,13 +205,12 @@
         
      		//댓글번호() 데이터를 삭제기능(컨트롤) + 화면에서 삭제(elem.remove())
      		function removeReply(){
-     			console.log(this.parentElement.parentElement.id); //this 키워드 : 이벤트를 받는 대상.
+     			//console.log(this.parentElement.parentElement.id); //this 키워드 : 이벤트를 받는 대상.
      			let id = this.parentElement.parentElement.id; //아이디번호
      			
      			fetch('replyRemoveAjax.do?replyId='+id)
      			.then(resolve => resolve.json())
      			.then(result => {
-     				console.log(result);
      				if(result.retCode =='Success'){
      					alert('성공');
      					document.getElementById(id).remove();
@@ -161,14 +235,19 @@
      			fetch('replyAddAjax.do',{//호출할 프론트컨트롤 map의 url주소
      				method:'post', 
      				headers:{'Content-Type' : 'application/x-www-form-urlencoded'},
-     				body:'writer='+writer+'&content='+content+'&pcode=CF0001'
+     				body:'writer='+writer+'&content='+content+'&pcode=${code.productCode}'
      			})
      			.then(resolve => resolve.json())
      			.then(result =>{
      				console.log(result);
      				if(result.retCode =='Success'){
      					alert('성공');
-     					makeRow(result.reply);
+     					let tr = makeRow(result.reply);
+     					document.querySelector('#list').append(tr);
+     					
+     					//댓글일부 입력 초기화
+     					document.querySelector('#content').value='';
+     					
      				}else if(result.retCode == 'Fail'){
      					alert('실패')
      				}else {
@@ -178,14 +257,13 @@
      			.catch(reject => console.error(reject))
      		}
      		
-     		//댓글 수정 
+     
      		
      		
      		
      		
 
         </script>
-        
         
         <!-- Related items section-->
         <section class="py-5 bg-light">

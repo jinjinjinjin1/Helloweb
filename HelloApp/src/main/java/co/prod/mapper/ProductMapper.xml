@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="co.prod.mapper.ProductMapper">
-  <select id="productList" resultType="productVO">
+  <select id="products" resultType="productVO">
     select * from product
   </select>
   
@@ -28,4 +28,26 @@
   insert into product_reply(reply_no, reply_writer,reply_content,product_code)
   values(#{replyNo},#{replyWriter},#{replyContent},#{productCode})
   </insert>
+  
+  <select id ="selectReply" parameterType="int">
+  select * from product_reply
+	where reply_no =#{replyNo}
+  </select>
+  
+  <update id ="modifyReply" parameterType="ReplyVO">
+  update product_reply
+  set reply_content=#{replyContent}
+  where reply_no=#{replyNo}
+  </update>
+  
+  <select id ="chartInfo" resultType="map">
+  select department_name AS "departmentName", count(*) as "cnt"
+  from employees e
+  join departments d 
+  on e.department_id = d.department_id
+  group by department_name
+  
+  </select>
+  
+  
 </mapper>
