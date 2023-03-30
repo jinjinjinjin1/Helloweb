@@ -49,5 +49,14 @@
   
   </select>
   
+  <select id = "calendarInfo" resultType="co.prod.vo.CalendarVO">
+  select * from full_calendar
+  </select>
+  
+  <insert id= "insertCal" parameterType="co.prod.vo.CalendarVO">
+ 	insert into full_calendar
+ 	values(#{title},#{startDate},#{endDate})
+ </insert>
+  
   
 </mapper>

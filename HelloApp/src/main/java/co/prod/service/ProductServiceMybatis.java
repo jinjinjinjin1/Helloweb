@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import co.prod.service.ProductService;
+import co.prod.vo.CalendarVO;
 import co.prod.vo.ProductVO;
 import co.prod.vo.ReplyVO;
 
@@ -61,6 +62,18 @@ public class ProductServiceMybatis implements ProductService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public List<CalendarVO> calendarInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean addCal(CalendarVO vo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 
 	
