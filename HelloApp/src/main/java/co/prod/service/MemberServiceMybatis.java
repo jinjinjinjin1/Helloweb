@@ -47,4 +47,6 @@ public class MemberServiceMybatis implements MemberService{
 		return mapper.login(vo);
 	}
 
+	
+	
 }

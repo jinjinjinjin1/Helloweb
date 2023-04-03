@@ -21,6 +21,7 @@ import co.prod.controller.MemberAddAjax;
 import co.prod.controller.MemberListAjax;
 import co.prod.controller.MemberListControl;
 import co.prod.controller.MemberRemoveAjax;
+import co.prod.controller.MemberRemoveJquery;
 import co.prod.controller.MembersControl;
 import co.prod.controller.ProductInfoControl;
 import co.prod.controller.ProductListControl;
@@ -30,6 +31,10 @@ import co.prod.controller.ReplyRemoveAjax;
 import co.prod.controller.ReplySearchAjax;
 import co.prod.controller.ReplyUpdateAjax;
 import co.prod.controller.calendarAddAjax;
+import co.prod.controller.memberAddJquery;
+//import co.prod.controller.calendarRemoveAjax;
+import co.prod.controller.memberJquery;
+import co.prod.controller.memberListJquery;
 
 public class FrontController extends HttpServlet{
 	
@@ -48,6 +53,18 @@ public class FrontController extends HttpServlet{
 	map.put("/memberListAjax.do", new MemberListAjax());
 	map.put("/memberRemoveAjax.do", new MemberRemoveAjax());
 	map.put("/memberAddAjax.do", new MemberAddAjax());
+	
+	//jquery용 ajx.
+	map.put("/memberJquery.do", new memberJquery());
+	//목록을 가지고 오도록.memberListJquery.do
+	map.put("/memberListJquery.do", new memberListJquery());
+	//회원 추가
+	map.put("/memberAddJquery.do", new memberAddJquery());
+	//회원삭제
+	map.put("/memberRemoveJquery.do", new MemberRemoveJquery());
+	
+	
+	
 	
 	//상품목록.
 	map.put("/productList.do", new ProductListControl());
@@ -81,6 +98,10 @@ public class FrontController extends HttpServlet{
 	map.put("/fullcalendarAjax.do", new FullCalendarAjax());
 	//calendar 일정 등록
 	map.put("/calendalAddAjax.do", new calendarAddAjax());
+	//calendar 일정 삭제
+	//map.put("/calendalRemoveAjax.do", new calendarRemoveAjax());
+	
+	
 	
 	}
 

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>practice</title>
+    <script src = "./jquery-3.6.4.min.js"> </script>
+
+    <script>
+        $(function(){
+            $("button").on("click", function(e) {
+                if(e.target.id === 'btn-1'){
+                $("#list").find("li")
+                .eq(0).html("내일은 토요일-엄마랑 같이 가구점가기")
+                .end()
+                .eq(1).html("내일모레는 일요일-일요일엔 할일할것 꼭 자바연습하기")
+                .end()
+                .eq(2).html("그리고 또다시 월요일-다시 한주 시작~~~~")
+                }else if(e.target.class ==='btn-2'){
+                    var imgSrc = $("img").attr("src");
+                    $("img").attr("src", "http://www.tcpschool.com/examples/images/img_flag.png");
+                
+                } 
+            
+            })
+        });
+
+
+
+    </script>
+
+</head>
+<body>
+    
+    <h1>오늘은 금요일</h1>    
+     <ul id = "list">
+        <li>내일은 토요일</li>
+        <li>내일모레는 일요일</li>
+        <li>그리고 또다시 월요일</li>
+     </ul>
+     <button class="click-btn" id="btn-1" >텍스트 변경</button>
+    <hr>
+     <h1>이미지 변경하기 </h1>
+     <p>아래의 버튼을 누르면 다음 이미지를 변경할 수 있어요!!</p>
+     <button class="click-btn" id="btn-2">src 속성 변경!</button><br><br>
+     <img src="http://www.tcpschool.com/examples/images/img_flower.png" style="width:320px; height:214px; border: 1px solid black">
+     
+
+
+
+
+</body>
+</html>

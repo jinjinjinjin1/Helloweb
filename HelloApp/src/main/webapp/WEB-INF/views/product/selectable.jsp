@@ -68,7 +68,13 @@
         },
         eventClick: function (arg) {
           if (confirm('이벤트를 삭제하시겠습니까?')) {
-            arg.event.remove()
+            fetch('calendalRemoveAjax.do',{
+            	
+            })
+        	  
+        	  
+        	  
+        	  arg.event.remove()
           }
         },
         editable: true,
